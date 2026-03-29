@@ -7,5 +7,5 @@ export function FieldError({ message }: FieldErrorProps) {
       return null;
    }
 
-   return <p className="text-red-500 text-sm">{message}</p>;
+   return <p className="text-red-500 text-sm text-center">{message}</p>;
 }

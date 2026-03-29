@@ -9,7 +9,7 @@ export function Button({ children, onClick, type }: ButtonProps) {
       <button
          onClick={onClick}
          type={type}
-         className="bg-cyan-500 p-3 rounded-full cursor-pointer text-white"
+         className="bg-cyan-500 p-3 rounded-full cursor-pointer text-white transition hover:bg-cyan-600"
       >
          {children}
       </button>

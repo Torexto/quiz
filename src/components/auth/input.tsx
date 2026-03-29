@@ -12,13 +12,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
       return (
          <div className="flex flex-col">
-            <label htmlFor={inputId} className="text-zinc-300 text-xs mx-2">
+            <label htmlFor={inputId} className="text-zinc-400 text-xs mx-2">
                {label}
             </label>
             <input
                ref={ref}
                id={inputId}
-               className={`bg-zinc-300 placeholder:text-zinc-400 text-zinc-600 py-2 px-3 rounded-full ${className ?? ""}`}
+               className={`transition border border-zinc-300 bg-zinc-300 placeholder:text-zinc-400 text-zinc-600 py-2 px-3 rounded-full hover:border-zinc-400 focus-visible:border-zinc-500 ${className ?? ""}`}
                {...props}
             />
          </div>

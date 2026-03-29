@@ -6,7 +6,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { loginAction } from "@/app/auth/actions";
 import { Button } from "@/components/auth/button";
+import Form from "@/components/auth/Form";
 import { FieldError } from "@/components/auth/field-error";
+import Footer from "@/components/auth/footer";
 import { Input } from "@/components/auth/input";
 import Title from "@/components/auth/title";
 import { LoginSchema, type LoginSchemaType } from "@/lib/schema/auth";
@@ -39,10 +41,7 @@ export default function Page() {
    return (
       <>
          <Title>Login Now</Title>
-         <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-         >
+         <Form onSubmit={handleSubmit(onSubmit)}>
             <Input
                label="Email *"
                placeholder="Enter your email"
@@ -59,13 +58,10 @@ export default function Page() {
             <FieldError message={errors.email?.message} />
             <FieldError message={errors.password?.message} />
             <FieldError message={error} />
-         </form>
-         <p className="text-center text-zinc-400">
-            Don't have an account?{" "}
-            <Link href="/auth/register" className="text-cyan-500">
-               Register
-            </Link>
-         </p>
+         </Form>
+         <Footer label="Don't have an account?" href="/auth/register">
+            Register
+         </Footer>
       </>
    );
 }

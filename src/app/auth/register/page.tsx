@@ -6,7 +6,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerAction } from "@/app/auth/actions";
 import { Button } from "@/components/auth/button";
+import Form from "@/components/auth/Form";
 import { FieldError } from "@/components/auth/field-error";
+import Footer from "@/components/auth/footer";
 import { Input } from "@/components/auth/input";
 import Title from "@/components/auth/title";
 import { RegisterSchema, type RegisterSchemaType } from "@/lib/schema/auth";
@@ -40,10 +42,7 @@ export default function Page() {
    return (
       <>
          <Title>Register Now</Title>
-         <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-         >
+         <Form onSubmit={handleSubmit(onSubmit)}>
             <Input
                label="Name *"
                placeholder="Enter your name"
@@ -66,13 +65,10 @@ export default function Page() {
             <FieldError message={errors.email?.message} />
             <FieldError message={errors.password?.message} />
             <FieldError message={error} />
-         </form>
-         <p className="text-center text-zinc-400">
-            Already have an account?{" "}
-            <Link href="/auth/login" className="text-cyan-500">
-               Login
-            </Link>
-         </p>
+         </Form>
+         <Footer label="Already have an account?" href="/auth/login">
+            Login
+         </Footer>
       </>
    );
 }
