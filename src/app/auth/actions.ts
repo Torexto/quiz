@@ -1,33 +1,46 @@
 "use server";
 
-import { LoginSchema, RegisterSchema } from "@/lib/schema/auth";
+import {LoginSchema, RegisterSchema} from "@/lib/schema/auth";
+import {auth} from "@/lib/auth/auth";
+import {headers} from "next/dist/server/request/headers";
+import {redirect} from "next/navigation";
 
-export async function loginAction(data: unknown) {
-  const parsed = LoginSchema.safeParse(data);
+type AuthResult = { ok: boolean, error: string | undefined };
 
-  if (!parsed.success) {
-    console.log(
-      "Login validation errors (server):",
-      parsed.error.issues,
-    );
-    return { ok: false };
-  }
+export async function loginAction(data: unknown): Promise<AuthResult> {
+   const parsed = LoginSchema.safeParse(data);
 
-  console.log("Login payload (server):", parsed.data);
-  return { ok: true };
+   if (!parsed.success) {
+      return {ok: false, error: "Invalid credentials"};
+   }
+
+   try {
+      await auth.api.signInEmail({
+         body: parsed.data,
+         headers: await headers()
+      });
+   } catch (err: any) {
+      return {ok: false, error: err.body.message};
+   }
+
+   redirect("/dashboard");
 }
 
-export async function registerAction(data: unknown) {
-  const parsed = RegisterSchema.safeParse(data);
+export async function registerAction(data: unknown): Promise<AuthResult> {
+   const parsed = RegisterSchema.safeParse(data);
 
-  if (!parsed.success) {
-    console.log(
-      "Register validation errors (server):",
-      parsed.error.issues,
-    );
-    return { ok: false };
-  }
+   if (!parsed.success) {
+      return {ok: false, error: "Invalid credentials"};
+   }
 
-  console.log("Register payload (server):", parsed.data);
-  return { ok: true };
+   try {
+      await auth.api.signUpEmail({
+         body: parsed.data,
+         headers: await headers()
+      })
+   } catch (err: any) {
+      return {ok: false, error: err.body.message};
+   }
+
+   redirect("/dashboard");
 }
