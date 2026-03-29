@@ -1,0 +1,78 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int          @id @default(autoincrement())
+  email     String       @unique
+  password  String
+  role      Role         @default(STUDENT)
+  createdAt DateTime     @default(now())
+  attempts  QuizAttempt[]
+}
+
+model Quiz {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String?
+  questions   Question[]
+  attempts    QuizAttempt[] // <- relacja powrotna do QuizAttempt
+  createdAt   DateTime    @default(now())
+}
+
+model Question {
+  id        Int          @id @default(autoincrement())
+  quiz      Quiz         @relation(fields: [quizId], references: [id])
+  quizId    Int
+  text      String
+  type      QuestionType @default(MULTIPLE_CHOICE)
+  options   Option[]
+  answers   Answer[]     // <- relacja powrotna do Answer
+}
+
+model Option {
+  id        Int       @id @default(autoincrement())
+  question  Question  @relation(fields: [questionId], references: [id])
+  questionId Int
+  text      String
+  isCorrect Boolean   @default(false)
+  answers   Answer[]  // <- relacja powrotna do Answer
+}
+
+model QuizAttempt {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  quiz      Quiz      @relation(fields: [quizId], references: [id])
+  quizId    Int
+  score     Float?
+  createdAt DateTime  @default(now())
+  answers   Answer[]
+}
+
+model Answer {
+  id          Int         @id @default(autoincrement())
+  attempt     QuizAttempt @relation(fields: [attemptId], references: [id])
+  attemptId   Int
+  question    Question    @relation(fields: [questionId], references: [id])
+  questionId  Int
+  option      Option?     @relation(fields: [optionId], references: [id])
+  optionId    Int?
+  textAnswer  String?     // np. dla pytania otwartego
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  SINGLE_CHOICE
+  TEXT
+}
