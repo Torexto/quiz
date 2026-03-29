@@ -1,1 +1,1 @@
-﻿export {auth as proxy} from '@/lib/auth/auth'
+﻿export { auth as proxy } from "@/lib/auth/auth";

@@ -1,21 +1,21 @@
 "use client";
 
-import {zodResolver} from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import {useForm} from "react-hook-form";
-import {registerAction} from "@/app/auth/actions";
-import {Button} from "@/components/auth/button";
-import {FieldError} from "@/components/auth/field-error";
-import {Input} from "@/components/auth/input";
-import {RegisterSchema, type RegisterSchemaType} from "@/lib/schema/auth";
-import {useState} from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { registerAction } from "@/app/auth/actions";
+import { Button } from "@/components/auth/button";
+import { FieldError } from "@/components/auth/field-error";
+import { Input } from "@/components/auth/input";
 import Title from "@/components/auth/title";
+import { RegisterSchema, type RegisterSchemaType } from "@/lib/schema/auth";
 
 export default function Page() {
    const {
       register,
       handleSubmit,
-      formState: {errors},
+      formState: { errors },
    } = useForm<RegisterSchemaType>({
       resolver: zodResolver(RegisterSchema),
       defaultValues: {
@@ -35,7 +35,6 @@ export default function Page() {
       } else {
          setError(undefined);
       }
-
    }
 
    return (
@@ -63,10 +62,10 @@ export default function Page() {
                {...register("password")}
             />
             <Button type="submit">Register</Button>
-            <FieldError message={errors.name?.message}/>
-            <FieldError message={errors.email?.message}/>
-            <FieldError message={errors.password?.message}/>
-            <FieldError message={error}/>
+            <FieldError message={errors.name?.message} />
+            <FieldError message={errors.email?.message} />
+            <FieldError message={errors.password?.message} />
+            <FieldError message={error} />
          </form>
          <p className="text-center text-zinc-400">
             Already have an account?{" "}
