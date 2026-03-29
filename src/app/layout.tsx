@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
+import type React from "react";
 
 const ubuntu = Ubuntu({
    subsets: ["latin"],
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en" className={`${ubuntu.variable} h-full antialiased`}>
-         <body className="min-h-full flex flex-col bg-violet-800">
+         <body className="min-h-full flex flex-col bg-linear-to-tr from-violet-800 to-purple-600">
             {children}
          </body>
       </html>
