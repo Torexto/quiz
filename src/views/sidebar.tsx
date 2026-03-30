@@ -10,7 +10,6 @@ import {
    Trophy,
    Users,
 } from "lucide-react";
-import { useState } from "react";
 import type { User } from "@/../prisma/generated/client";
 import SidebarContainer from "@/components/dashboard/sidebar/sidebarContainer";
 import SidebarItem from "@/components/dashboard/sidebar/sidebarItem";
@@ -21,17 +20,13 @@ import SidebarTitle from "@/components/dashboard/sidebar/sidebarTitle";
 
 type SidebarProps = {
    user: User;
-   onClose?: () => void;
+   isOpen: boolean;
 };
 
-export default function Sidebar({ user }: SidebarProps) {
-   const [isOpen, setIsOpen] = useState(false);
-
+export default function Sidebar({ user, isOpen }: SidebarProps) {
    return (
-      <SidebarContainer>
-         <SidebarTitle onClick={() => setIsOpen((prev) => !prev)}>
-            Quiz App
-         </SidebarTitle>
+      <SidebarContainer isOpen={isOpen}>
+         <SidebarTitle>Quiz App</SidebarTitle>
          <SidebarNav>
             <SidebarSection title="Student">
                <SidebarItem
