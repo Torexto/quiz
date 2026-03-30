@@ -24,25 +24,25 @@ export default function SidebarProfile({ user }: SidebarProfileProps) {
    };
 
    return (
-      <div className="mt-auto border-t border-gray-200 p-3 flex items-center justify-between">
+      <div className="mt-auto border-t border-app-border p-3 flex items-center justify-between">
          <div className="flex items-center gap-3">
             <div className="size-10 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center font-semibold">
                {initials || "U"}
             </div>
             <div className="min-w-0">
-               <p className="text-sm font-medium text-gray-800 truncate">
-                  {user.name}
+               <p className="text-sm font-medium truncate">{user.name}</p>
+               <p className="text-xs text-app-secondary truncate">
+                  {user.email}
                </p>
-               <p className="text-xs text-gray-500 truncate">{user.email}</p>
             </div>
          </div>
          <div>
             <button
                type="button"
                onClick={logout}
-               className="block rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-200 transition cursor-pointer"
+               className="block rounded-md border border-app-border px-3 py-2 text-sm hover:bg-app-hover transition cursor-pointer"
             >
-               <LogOut size="16" />
+               <LogOut />
             </button>
          </div>
       </div>

@@ -8,12 +8,14 @@ type SidebarItemProps = {
    children: React.ReactNode;
    href: string;
    icon?: React.ReactNode;
+   onClickAction?: () => void;
 };
 
 export default function SidebarItem({
    children,
    href,
    icon,
+   onClickAction,
 }: SidebarItemProps) {
    const pathname = usePathname();
 
@@ -22,16 +24,13 @@ export default function SidebarItem({
    return (
       <Link
          href={href}
+         onClick={onClickAction}
          className={`
             group flex items-center gap-3 px-3 py-2 text-sm font-medium transition-all duration-200 rounded-lg
-            ${
-               isActive
-                  ? "bg-violet-50 text-violet-700"
-                  : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
-            }
+            ${isActive ? "bg-app-hover text-app-brand" : "hover:bg-app-hover"}
          `}
       >
-         {icon ? <span className="text-gray-500">{icon}</span> : null}
+         {icon}
          <span>{children}</span>
       </Link>
    );

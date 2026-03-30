@@ -1,30 +1,50 @@
-import { Bell, Menu, Moon, Search } from "lucide-react";
+"use client";
 
-export default function Nav() {
+import { Bell, Home, Menu, Moon } from "lucide-react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import Button from "@/components/dashboard/nav/Button";
+import SearchBar from "@/components/dashboard/nav/SearchBar";
+
+type NavProps = {
+   toggleSidebarAction: () => void;
+};
+
+export default function Nav({ toggleSidebarAction }: NavProps) {
+   const { theme, setTheme } = useTheme();
+   const [mounted, setMounted] = useState(false);
+
+   useEffect(() => setMounted(true), []);
+
+   if (!mounted) return <div className="p-2 w-9 h-9" />;
+
+   const toggleTheme = () => {
+      if (theme === "light") setTheme("dark");
+      else setTheme("light");
+   };
+
+   const showNotification = () => {};
+
    return (
-      <div className="border-b border-b-zinc-300 flex items-center flex-1 h-16 rounded-tr-xl p-3 bg-white shadow-md space-x-2 ">
-         <button
-            type="button"
-            className="lg:hidden p-2 text-zinc-400 hover:bg-zinc-100 rounded-lg transition-colors cursor-pointer"
+      <div className="w-full border-b border-b-app-border flex items-center h-16 rounded-tr-xl p-3 shadow-md space-x-2 text-app-primary">
+         <Button onClick={toggleSidebarAction} className="lg:hidden">
+            <Menu />
+         </Button>
+         <Link
+            href="/dashboard"
+            className="h-full flex items-center px-2 cursor-pointer hover:bg-app-hover lg:hover:bg-transparent rounded-lg transition-colors"
          >
-            <Menu size={20} className="text-zinc-600" />
-         </button>
-         <div className="flex-1 border border-zinc-400 rounded-full flex items-center justify-between h-full">
-            <Search className="h-5 w-5 text-zinc-400 m-4" size={16} />
-            <input type="search" className="w-full h-full rounded-r-full p-2" />
-         </div>
-         <button
-            type="button"
-            className="p-2 text-zinc-400 hover:bg-zinc-100 rounded-lg transition-colors cursor-pointer"
-         >
-            <Bell size={20} className="text-zinc-600" />
-         </button>
-         <button
-            type="button"
-            className="p-2 text-zinc-400 hover:bg-zinc-100 rounded-lg transition-colors cursor-pointer"
-         >
-            <Moon size={20} className="text-zinc-600" />
-         </button>
+            <h1 className="hidden lg:block text-2xl">Dashboard</h1>
+            <Home className="lg:hidden" />
+         </Link>
+         <SearchBar />
+         <Button onClick={showNotification}>
+            <Bell />
+         </Button>
+         <Button onClick={toggleTheme}>
+            <Moon />
+         </Button>
       </div>
    );
 }

@@ -5,5 +5,9 @@ type SidebarNavProps = {
 };
 
 export default function SidebarNav({ children }: SidebarNavProps) {
-   return <div className="flex-1 p-2 divide-y divide-gray-200 overflow-y-auto">{children}</div>;
+   return (
+      <div className="flex-1 p-2 divide-y divide-app-border overflow-y-auto">
+         {children}
+      </div>
+   );
 }

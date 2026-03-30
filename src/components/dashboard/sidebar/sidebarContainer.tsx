@@ -11,7 +11,7 @@ export default function SidebarContainer({
 }: SidebarContainerProps) {
    return (
       <div
-         className={`w-70 flex flex-col bg-linear-to-b from-white to-gray-100 rounded-l-xl shadow-lg border-r border-gray-200 ${isOpen ? "block" : "block"}`}
+         className={`w-70 z-50 bg-app-background flex flex-col shadow-lg border-b lg:border-r-0 border-r border-app-border transition absolute top-0 left-0 ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:static`}
       >
          {children}
       </div>

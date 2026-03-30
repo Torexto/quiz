@@ -15,13 +15,27 @@ export default function DashboardContainer({
    children,
    user,
 }: DashboardContainerProps) {
-   const [isOpen, setIsOpen] = useState<boolean>(true);
+   const [isOpen, setIsOpen] = useState<boolean>(false);
+   const closeSidebar = () => setIsOpen(false);
 
    return (
-      <div className="w-full h-full bg-white rounded-2xl shadow-2xl flex-1 flex">
-         <Sidebar user={user} isOpen={isOpen} />
-         <Nav />
-         {children}
+      <div className="w-full h-full bg-app-background rounded-2xl shadow-2xl flex-1 flex overflow-hidden relative flex-col">
+         <Nav toggleSidebarAction={() => setIsOpen((prev) => !prev)} />
+         <div className="flex flex-1 relative">
+            {isOpen && (
+               <button
+                  type="button"
+                  className="fixed inset-0 bg-app-secondary/40 z-40 lg:hidden transition-opacity"
+                  onClick={closeSidebar}
+               />
+            )}
+            <Sidebar
+               user={user}
+               isOpen={isOpen}
+               closeSidebarAction={closeSidebar}
+            />
+            {children}
+         </div>
       </div>
    );
 }

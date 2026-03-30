@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import type React from "react";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const ubuntu = Ubuntu({
    subsets: ["latin"],
@@ -20,9 +21,15 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en" className={`${ubuntu.variable} h-full antialiased`}>
+      <html
+         lang="en"
+         className={`${ubuntu.variable} h-full antialiased`}
+         suppressHydrationWarning
+      >
          <body className="min-h-full flex flex-col bg-linear-to-tr from-violet-800 to-purple-600">
-            {children}
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+               {children}
+            </ThemeProvider>
          </body>
       </html>
    );

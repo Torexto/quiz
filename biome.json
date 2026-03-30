@@ -41,5 +41,8 @@
             "organizeImports": "on"
          }
       }
+   },
+   "javascript": {
+      "globals": ["React"]
    }
 }

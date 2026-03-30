@@ -1,2 +1,33 @@
 @import "tailwindcss";
 @import "tailwindcss/utilities";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+   --color-app-background: var(--app-background);
+   --color-app-primary: var(--app-primary);
+   --color-app-secondary: var(--app-secondary);
+   --color-app-hover: var(--app-hover);
+   --color-app-brand: var(--app-brand);
+   --color-app-border: var(--app-border);
+}
+
+@layer base {
+   :root {
+      --app-background: var(--color-white);
+      --app-primary: var(--color-zinc-600);
+      --app-secondary: var(--color-zinc-500);
+      --app-hover: var(--color-zinc-100);
+      --app-brand: var(--color-violet-700);
+      --app-border: var(--color-zinc-300);
+   }
+
+   .dark {
+      --app-background: var(--color-zinc-700);
+      --app-primary: var(--color-zinc-200);
+      --app-secondary: var(--color-zinc-400);
+      --app-hover: var(--color-zinc-500);
+      --app-brand: var(--color-violet-300);
+      --app-border: var(--color-zinc-500);
+   }
+}

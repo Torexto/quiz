@@ -11,7 +11,7 @@ export default function SidebarSection({
 }: SidebarSectionProps) {
    return (
       <section className="py-3 px-2 space-y-1">
-         <h2 className="px-2 text-[11px] tracking-wide uppercase text-gray-500">
+         <h2 className="px-2 text-xs tracking-wide uppercase text-app-secondary">
             {title}
          </h2>
          <div className="space-y-0.5">{children}</div>
