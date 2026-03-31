@@ -19,7 +19,7 @@ export default function DashboardContainer({
    const closeSidebar = () => setIsOpen(false);
 
    return (
-      <div className="w-full h-full bg-app-background rounded-2xl shadow-2xl flex-1 flex overflow-hidden relative flex-col">
+      <div className="w-full h-full bg-app-background rounded-2xl shadow-2xl flex-1 flex relative flex-col">
          <Nav toggleSidebarAction={() => setIsOpen((prev) => !prev)} />
          <div className="flex flex-1 relative">
             {isOpen && (
@@ -34,7 +34,7 @@ export default function DashboardContainer({
                isOpen={isOpen}
                closeSidebarAction={closeSidebar}
             />
-            {children}
+            <div className="p-2 flex-1">{children}</div>
          </div>
       </div>
    );

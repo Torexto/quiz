@@ -15,7 +15,7 @@ export default async function DashboardLayout({
    const user = session.user as User;
 
    return (
-      <div className="min-h-screen p-6 flex flex-col justify-start">
+      <div className="min-h-screen p-2 lg:p-6 flex flex-col justify-start">
          <DashboardContainer user={user}>{children}</DashboardContainer>
       </div>
    );

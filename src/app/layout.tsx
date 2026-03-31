@@ -26,7 +26,7 @@ export default function RootLayout({
          className={`${ubuntu.variable} h-full antialiased`}
          suppressHydrationWarning
       >
-         <body className="min-h-full flex flex-col bg-linear-to-tr from-violet-800 to-purple-600">
+         <body className="min-h-full flex flex-col bg-linear-to-tr from-violet-800 to-purple-600 bg-no-repeat bg-fixed">
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                {children}
             </ThemeProvider>

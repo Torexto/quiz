@@ -27,7 +27,7 @@ export default function Nav({ toggleSidebarAction }: NavProps) {
    const showNotification = () => {};
 
    return (
-      <div className="w-full border-b border-b-app-border flex items-center h-16 rounded-tr-xl p-3 shadow-md space-x-2 text-app-primary">
+      <div className="w-full border-b border-b-app-border flex items-center h-16 rounded-t-xl p-3 shadow-md space-x-2 text-app-primary sticky top-0 z-50 bg-app-background">
          <Button onClick={toggleSidebarAction} className="lg:hidden">
             <Menu />
          </Button>
