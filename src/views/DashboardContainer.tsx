@@ -1,8 +1,8 @@
 "use client";
 
+import type { User } from "@prisma/client";
 import type React from "react";
 import { useState } from "react";
-import type { User } from "@/../prisma/generated/client";
 import Nav from "@/views/nav";
 import Sidebar from "@/views/sidebar";
 

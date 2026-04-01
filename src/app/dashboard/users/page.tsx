@@ -1,12 +1,7 @@
-﻿import {
-   GraduationCap,
-   Mail,
-   MoreVertical,
-   ShieldCheck,
-   UserPlus,
-   Users,
-} from "lucide-react";
+﻿import type { User } from "@prisma/client";
+import { GraduationCap, ShieldCheck, UserPlus, Users } from "lucide-react";
 import PageShell from "@/components/dashboard/PageShell";
+import UserRow from "@/components/dashboard/UserRow";
 import { prisma } from "@/lib/prisma";
 
 export default async function UsersPage() {
@@ -111,7 +106,7 @@ function UserTableSection({
    badgeColor,
 }: {
    title: string;
-   users: any[];
+   users: User[];
    badgeColor: string;
 }) {
    return (
@@ -137,46 +132,11 @@ function UserTableSection({
                </thead>
                <tbody className="divide-y divide-app-border">
                   {users.map((user) => (
-                     <tr
+                     <UserRow
                         key={user.id}
-                        className="group hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 transition-colors"
-                     >
-                        <td className="px-6 py-4">
-                           <div className="flex items-center gap-3">
-                              <div className="size-9 rounded-full bg-app-brand/10 text-app-brand flex items-center justify-center font-bold text-sm border border-app-brand/20">
-                                 {user.name?.charAt(0) || "U"}
-                              </div>
-                              <div className="flex flex-col">
-                                 <span className="text-sm font-semibold text-app-text">
-                                    {user.name}
-                                 </span>
-                                 <span className="text-xs text-zinc-500 flex items-center gap-1">
-                                    <Mail size={12} /> {user.email}
-                                 </span>
-                              </div>
-                           </div>
-                        </td>
-                        <td className="px-6 py-4">
-                           <span
-                              className={`px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase ${badgeColor}`}
-                           >
-                              {user.role}
-                           </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-zinc-500">
-                           {new Date(
-                              user.createdAt || Date.now(),
-                           ).toLocaleDateString()}
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                           <button
-                              className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors text-zinc-400 hover:text-app-text"
-                              type="button"
-                           >
-                              <MoreVertical size={18} />
-                           </button>
-                        </td>
-                     </tr>
+                        user={user}
+                        badgeColor={badgeColor}
+                     />
                   ))}
                </tbody>
             </table>
