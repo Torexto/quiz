@@ -1,8 +1,18 @@
-﻿import type { User } from "@prisma/client";
+﻿import { zodResolver } from "@hookform/resolvers/zod";
+import type { User } from "@prisma/client";
 import { GraduationCap, ShieldCheck, UserPlus, Users } from "lucide-react";
+import { Dialog } from "radix-ui";
+import { useForm } from "react-hook-form";
+import { createUserAction } from "@/app/dashboard/users/actions";
+import { FieldError } from "@/components/auth/field-error";
+import AddUser from "@/components/dashboard/AddUser";
 import PageShell from "@/components/dashboard/PageShell";
 import UserRow from "@/components/dashboard/UserRow";
 import { prisma } from "@/lib/prisma";
+import {
+   createUserActionSchema,
+   type createUserActionType,
+} from "@/lib/schema/userDashboard";
 
 export default async function UsersPage() {
    const users = await prisma.user.findMany({
@@ -17,18 +27,9 @@ export default async function UsersPage() {
       <PageShell
          title="User Management"
          description="Overview of all registered staff and students in the system."
-         actions={
-            <button
-               type="button"
-               className="flex items-center gap-2 bg-app-brand text-white px-4 py-2 rounded-xl font-medium hover:opacity-90 transition-all shadow-lg shadow-app-brand/20"
-            >
-               <UserPlus size={18} />
-               Add User
-            </button>
-         }
+         actions={<AddUser />}
       >
-         {/* 1. Szybkie statystyki */}
-         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             <StatCard
                label="Total Staff"
                value={teachers.length}
@@ -50,19 +51,21 @@ export default async function UsersPage() {
          </div>
 
          <div className="space-y-12">
-            {/* 2. Sekcja Nauczycieli */}
-            <UserTableSection
-               title="Teaching Staff"
-               users={teachers}
-               badgeColor="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400"
-            />
+            {teachers.length > 0 && (
+               <UserTableSection
+                  title="Teaching Staff"
+                  users={teachers}
+                  badgeColor="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400"
+               />
+            )}
 
-            {/* 3. Sekcja Uczniów */}
-            <UserTableSection
-               title="Student Registry"
-               users={students}
-               badgeColor="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-            />
+            {students.length > 0 && (
+               <UserTableSection
+                  title="Student Registry"
+                  users={students}
+                  badgeColor="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+               />
+            )}
          </div>
       </PageShell>
    );
